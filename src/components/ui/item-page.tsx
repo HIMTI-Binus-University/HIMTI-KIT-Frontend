@@ -17,10 +17,10 @@ export function CatalogPage({
   const [search, setSearch] = useState("");
 
   const filteredItems = items.filter((item) =>
-  `${item.title} ${item.majors.join(" ")}`
+  `${item.title} ${item.description} ${item.majors.join(" ")}`
     .toLowerCase()
     .includes(search.trim().toLowerCase()),
-  ); 
+  );
 
   return (
     <main className="min-h-screen bg-slate-950">

@@ -214,9 +214,9 @@ export const getSoftware = async (params?: { search?: string }): Promise<KitSoft
 
 ## 7. Checklist Pengujian (Testing)
 
-- [ ] Backend berjalan di `http://localhost:8000`.
-- [ ] File `.env` sudah dibuat dengan `VITE_API_BASE_URL=http://localhost:8000`.
-- [ ] Server dijalankan dengan `npm run dev` di `HIMTI-KIT-Frontend` &rarr; buka `http://localhost:3001`.
+- [v] Backend berjalan di `http://localhost:8000`.
+- [v] File `.env` sudah dibuat dengan `VITE_API_BASE_URL=http://localhost:8000`.
+- [v] Server dijalankan dengan `npm run dev` di `HIMTI-KIT-Frontend` &rarr; buka `http://localhost:3001`.
 - [ ] Halaman login menampilkan background image dan warna aksen sesuai yang diatur dari Admin Dashboard.
 - [ ] Masukkan NIM yang terdaftar &rarr; lolos ke `/kit`. Masukkan NIM asal &rarr; muncul pesan penolakan.
 - [ ] Halaman `/kit` (notes) dan `/software` menampilkan data riil dari database.

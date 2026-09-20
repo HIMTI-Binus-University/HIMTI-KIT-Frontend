@@ -5,5 +5,5 @@ import path from "node:path";
 export default defineConfig({
   plugins: [react()],
   resolve: { alias: { "@": path.resolve(import.meta.dirname, "./src") } },
-  server: { port: 3000 },
+  server: { port: 3001 }, // <-- Ubah ke 3001
 });

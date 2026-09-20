@@ -10,8 +10,10 @@ export function KitHeader() {
     }`;
 
   function handleLogout() {
-    navigate("/");
-  }
+  localStorage.removeItem("student_nim");
+  localStorage.removeItem("student_name");
+  navigate("/");
+}
 
   return (
     <header className="w-full border-b border-slate-300 bg-white/95 px-5 py-3">
