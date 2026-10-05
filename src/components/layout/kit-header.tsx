@@ -20,7 +20,7 @@ export function KitHeader() {
       <div className="flex w-full items-center gap-4">
         <div className="flex shrink-0 items-center gap-3">
           <img
-            src="/assets/HIMTI-logo.jpg"
+            src="/assets/himti-logo.png"
             alt="HIMTI BINUS"
             className="h-11 w-11 object-contain"
           />
