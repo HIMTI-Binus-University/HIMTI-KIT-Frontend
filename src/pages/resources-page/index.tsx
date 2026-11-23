@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/constants/query-keys";
 import { getResources } from "@/api/himti-kit";
 import { CatalogPage } from "@/components/ui/item-page";
 import type { CatalogItem } from "@/components/ui/item-card";
@@ -9,8 +10,8 @@ export default function ResourcesPage() {
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["himti-kit", "resources"],
-    queryFn: getResources,
+    queryKey: queryKeys.kitResources,
+    queryFn: () => getResources(),
   });
 
   const items: CatalogItem[] = resources.map((resource) => ({

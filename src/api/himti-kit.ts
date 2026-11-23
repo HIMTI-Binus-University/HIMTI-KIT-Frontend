@@ -1,9 +1,11 @@
+import { isAxiosError } from "axios";
 import apiClient from "@/config/api-client";
 import { apiPaths } from "@/constants/api";
 import type {
   HimtiKitAppearance,
   StudentValidationResponse,
   KitResource,
+  KitSession,
   KitSoftware,
 } from "@/types/himti-kit";
 
@@ -41,4 +43,22 @@ export const getSoftware = async (params?: { search?: string }): Promise<KitSoft
     { params }
   );
   return data.data;
+};
+
+// 5. Cek session HIMTI Kit (cookie httpOnly dari backend). null = belum login / kedaluwarsa.
+export const getSession = async (): Promise<KitSession | null> => {
+  try {
+    const { data } = await apiClient.get<{ success: boolean; data: KitSession }>(
+      apiPaths.session
+    );
+    return data.data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.status === 401) return null;
+    throw error;
+  }
+};
+
+// 6. Logout: backend menghapus cookie session.
+export const logout = async (): Promise<void> => {
+  await apiClient.post(apiPaths.logout);
 };
