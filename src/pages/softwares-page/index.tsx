@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/constants/query-keys";
 import { getSoftware } from "@/api/himti-kit";
 import { CatalogPage } from "@/components/ui/item-page";
 import type { CatalogItem } from "@/components/ui/item-card";
@@ -9,8 +10,8 @@ export default function SoftwaresPage() {
     isPending,
     isError,
   } = useQuery({
-    queryKey: ["himti-kit", "softwares"],
-    queryFn: getSoftware,
+    queryKey: queryKeys.kitSoftwares,
+    queryFn: () => getSoftware(),
   });
 
   const items: CatalogItem[] = softwares.map((software) => ({

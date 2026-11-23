@@ -1,19 +1,29 @@
 import { BookOpenText, CodeXml, LogOut } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { logout } from "@/api/himti-kit";
+import { queryKeys } from "@/constants/query-keys";
 
 export function KitHeader() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-2 px-3 py-2 text-sm font-semibold whitespace-nowrap transition ${
       isActive ? "text-slate-950" : "text-slate-600 hover:text-slate-950"
     }`;
 
-  function handleLogout() {
-  localStorage.removeItem("student_nim");
-  localStorage.removeItem("student_name");
-  navigate("/");
-}
+  async function handleLogout() {
+    try {
+      await logout();
+    } catch {
+      // Even if the request fails, leave; the guard re-checks the session.
+    }
+    queryClient.setQueryData(queryKeys.kitSession, null);
+    queryClient.removeQueries({ queryKey: queryKeys.kitResources });
+    queryClient.removeQueries({ queryKey: queryKeys.kitSoftwares });
+    navigate("/");
+  }
 
   return (
     <header className="w-full border-b border-slate-300 bg-white/95 px-5 py-3">

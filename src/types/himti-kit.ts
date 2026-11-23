@@ -13,6 +13,12 @@ export interface StudentValidationResponse {
   name?: string;
 }
 
+export interface KitSession {
+  nim: string;
+  name: string;
+  expiresAt: number;
+}
+
 export interface KitResource {
   id: string;
   title: string;

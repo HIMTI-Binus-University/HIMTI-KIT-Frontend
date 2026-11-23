@@ -1,33 +1,20 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
-import { getAppearance, validateNim } from "@/api/himti-kit";
-import type { HimtiKitAppearance } from "@/types/himti-kit";
+import { validateNim } from "@/api/himti-kit";
+import { AppearanceBackground } from "@/components/layout/appearance-background";
+import { queryKeys } from "@/constants/query-keys";
+import { useAppearance } from "@/hooks/use-appearance";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { accentColor } = useAppearance();
 
   const [nim, setNim] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [appearance, setAppearance] = useState<HimtiKitAppearance | null>(
-    null,
-  );
-
-  useEffect(() => {
-    let isMounted = true;
-
-    getAppearance()
-      .then((data) => {
-        if (isMounted) setAppearance(data);
-      })
-      .catch(() => {
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,12 +37,9 @@ export default function LoginPage() {
         return;
       }
 
-      localStorage.setItem("student_nim", nim.trim());
-
-      if (response.name) {
-        localStorage.setItem("student_name", response.name);
-      }
-
+      // The backend has set the httpOnly session cookie; no client-side storage.
+      // Drop any cached "signed out" result so the route guard re-checks.
+      queryClient.removeQueries({ queryKey: queryKeys.kitSession });
       navigate("/kit");
     } catch {
       setMessage(
@@ -66,36 +50,9 @@ export default function LoginPage() {
     }
   }
 
-  const backgroundImageUrl =
-    appearance?.backgroundImageUrl || "/assets/login-background.jpg";
-
-  const overlayOpacity = appearance?.overlayEnabled
-    ? appearance.overlayDarkness / 100
-    : 0.5;
-
-  const blurAmount = appearance?.blurEnabled
-    ? `${appearance.blurIntensity}px`
-    : "0px";
-
-  const accentColor = appearance?.accentColor || "#0f172a";
-
   return (
-    <main className="relative min-h-screen overflow-hidden bg-slate-950">
-      <img
-        src={backgroundImageUrl}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})`,
-          backdropFilter: `blur(${blurAmount})`,
-        }}
-      />
-
-      <section className="relative mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 text-center text-white">
+    <AppearanceBackground>
+      <section className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 text-center text-white">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/75">
           School of Computer Science
         </p>
@@ -145,6 +102,6 @@ export default function LoginPage() {
           </p>
         )}
       </section>
-    </main>
+    </AppearanceBackground>
   );
 }
