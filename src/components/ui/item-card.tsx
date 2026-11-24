@@ -1,4 +1,5 @@
 import { Download, FileText } from "lucide-react";
+import { ALL_MAJORS_COUNT } from "@/constants/majors";
 
 export type CatalogItem = {
   id: string;
@@ -31,6 +32,19 @@ export function CatalogCard({ item }: CatalogCardProps) {
 
       <div className="p-4">
         <h3 className="text-lg font-bold text-slate-950">{item.title}</h3>
+
+        {item.majors.length > 0 && (
+          <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="Majors">
+            {(item.majors.length >= ALL_MAJORS_COUNT ? ["All majors"] : item.majors).map((major) => (
+              <li
+                key={major}
+                className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700"
+              >
+                {major}
+              </li>
+            ))}
+          </ul>
+        )}
 
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">
           {item.description}

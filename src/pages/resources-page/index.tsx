@@ -3,6 +3,7 @@ import { queryKeys } from "@/constants/query-keys";
 import { getResources } from "@/api/himti-kit";
 import { CatalogPage } from "@/components/ui/item-page";
 import type { CatalogItem } from "@/components/ui/item-card";
+import { getResourceMajorLabels } from "@/constants/majors";
 
 export default function ResourcesPage() {
   const {
@@ -19,7 +20,7 @@ export default function ResourcesPage() {
     type: "resource",
     title: resource.title,
     description: resource.description ?? "No description available.",
-    majors: [resource.major],
+    majors: getResourceMajorLabels(resource),
     coverImageUrl: resource.coverImageUrl ?? undefined,
     fileUrl: resource.downloadUrl,
   }));

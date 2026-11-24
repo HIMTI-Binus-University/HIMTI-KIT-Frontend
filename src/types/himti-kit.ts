@@ -23,7 +23,9 @@ export interface KitResource {
   id: string;
   title: string;
   description?: string;
-  major: string;
+  majors: string[];
+  /** Legacy: first entry of `majors`. */
+  major?: string | null;
   downloadUrl: string;
   coverImageUrl?: string | null;
   createdAt: string;
