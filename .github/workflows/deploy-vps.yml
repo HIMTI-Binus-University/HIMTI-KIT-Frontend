@@ -63,7 +63,7 @@ jobs:
       - name: Build Application
         run: npm run build
         env:
-          VITE_API_BASE_URL: https://dev-api.himtibinus.or.id
+          VITE_API_BASE_URL: https://api.himtibinus.or.id
 
       - name: Resolve deployment target
         id: vars
@@ -88,14 +88,14 @@ jobs:
             echo "service=himti-kit-prod" >> "$GITHUB_OUTPUT"
             echo "profile=prod" >> "$GITHUB_OUTPUT"
             echo "api_base_url=https://api.himtibinus.or.id" >> "$GITHUB_OUTPUT"
-            echo "app_url=https://kit.himtibinus.or.id" >> "$GITHUB_OUTPUT"
+            echo "app_url=https://himtikit.himtibinus.or.id" >> "$GITHUB_OUTPUT"
           else
             echo "target=development" >> "$GITHUB_OUTPUT"
             echo "image_tag=dev" >> "$GITHUB_OUTPUT"
             echo "service=himti-kit-dev" >> "$GITHUB_OUTPUT"
             echo "profile=dev" >> "$GITHUB_OUTPUT"
-            echo "api_base_url=https://dev-api.himtibinus.or.id" >> "$GITHUB_OUTPUT"
-            echo "app_url=https://dev-kit.himtibinus.or.id" >> "$GITHUB_OUTPUT"
+            echo "api_base_url=https://api.himtibinus.or.id" >> "$GITHUB_OUTPUT"
+            echo "app_url=https://himtikit.himtibinus.or.id" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Show deployment target
