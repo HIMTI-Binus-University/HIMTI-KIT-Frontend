@@ -95,7 +95,7 @@ jobs:
             echo "service=himti-kit-dev" >> "$GITHUB_OUTPUT"
             echo "profile=dev" >> "$GITHUB_OUTPUT"
             echo "api_base_url=https://api.himtibinus.or.id" >> "$GITHUB_OUTPUT"
-            echo "app_url=https://dev-himtikit.himtibinus.or.id" >> "$GITHUB_OUTPUT"
+            echo "app_url=https://himtikit.himtibinus.or.id" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Show deployment target
